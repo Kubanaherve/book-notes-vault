@@ -25,6 +25,62 @@
   <div id="aria-assertive" class="sr-only" aria-live="assertive"></div>
 
   <main id="main-content">
+   
+    <!-- Dashboard Section -->
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <h2 id="dashboard-heading">Stats & Dashboard</h2>
+      <div class="stats-grid">
+        <div class="stat-card">Total Books/Notes: <span id="stat-total">0</span></div>
+        <div class="stat-card">Total Pages: <span id="stat-pages">0</span></div>
+        <div class="stat-card">Top Tag: <span id="stat-tag">N/A</span></div>
+      </div>
+      <div class="cap-tracker">
+        Reading Goal (Pages): <span id="goal-status">Loading...</span>
+      </div>
+      </section>
+
+      <!-- Vault Table / Search -->
+    <section id="vault" aria-labelledby="vault-heading">
+      <h2 id="vault-heading">My Vault</h2>
+      <div class="controls">
+        <div class="search-group">
+          <label for="search-input">Regex Search:</label>
+          <input type="text" id="search-input" placeholder="e.g., \b(\w+)\s+\1\b">
+          <label><input type="checkbox" id="search-case" checked> Case Insensitive</label>
+        </div>
+         <div class="sort-group">
+          <label for="sort-select">Sort By:</label>
+          <select id="sort-select">
+            <option value="dateAdded-desc">Date (Newest First)</option>
+            <option value="dateAdded-asc">Date (Oldest First)</option>
+            <option value="title-asc">Title (A-Z)</option>
+            <option value="pages-desc">Pages (High-Low)</option>
+          </select>
+        </div>
+      </div>
+   <div class="table-responsive">
+        <table id="records-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Pages/Duration</th>
+              <th>Tag</th>
+              <th>Date Added</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="records-body">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    </section>
+     
+
+
   </main>
 </body>
 </html>
