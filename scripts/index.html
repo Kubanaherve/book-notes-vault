@@ -30,7 +30,7 @@
     <section id="dashboard" aria-labelledby="dashboard-heading">
       <h2 id="dashboard-heading">Stats & Dashboard</h2>
       <div class="stats-grid">
-        <div class="stat-card">Total Books/Notes: <span id="stat-total">0</span></div>
+        <div class="stat-card"><otal Books/Notes: <span id="stat-total">0</span></div>
         <div class="stat-card">Total Pages: <span id="stat-pages">0</span></div>
         <div class="stat-card">Top Tag: <span id="stat-tag">N/A</span></div>
       </div>
@@ -43,7 +43,7 @@
     <section id="vault" aria-labelledby="vault-heading">
       <h2 id="vault-heading">My Vault</h2>
       <div class="controls">
-        <div class="search-group">
+             <div class="search-group">
           <label for="search-input">Regex Search:</label>
           <input type="text" id="search-input" placeholder="e.g., \b(\w+)\s+\1\b">
           <label><input type="checkbox" id="search-case" checked> Case Insensitive</label>
@@ -88,21 +88,6 @@
 
         <div class="form-group">
           <label for="title">Title *</label>
-          <input type="text" id="title" required aria-describedby="title-error">
-          <span class="error-msg" id="title-error"></span>
-        </div>
-
-        <div class="form-group">
-          <label for="author">Author *</label>
-          <input type="text" id="author" required aria-describedby="author-error">
-          <span class="error-msg" id="author-error"></span>
-        </div>
-        <div class="form-group">
-          <label for="pages">Pages (or Minutes) *</label>
-          <input type="text" id="pages" required aria-describedby="pages-error">
-          <span class="error-msg" id="pages-error"></span>
-        </div>
-        <div class="form-group">
           <label for="tag">Tag (e.g., Fiction, Study-Notes) *</label>
           <input type="text" id="tag" required aria-describedby="tag-error">
           <span class="error-msg" id="tag-error"></span>
@@ -117,7 +102,6 @@
         <button type="submit" class="btn-primary">Save Entry</button>
         <button type="button" id="cancel-edit" class="btn-secondary hidden">Cancel Edit</button>
       </form>
-
       </section>
 
     <!-- Settings Section -->
@@ -133,22 +117,7 @@
         <select id="unit-toggle">
           <option value="pages">Pages</option>
           <option value="minutes">Minutes (1 page = 2 mins)</option>
-        </select>
-      </div>
-      <div class="data-controls">
-        <button id="export-btn" class="btn-secondary">Export JSON</button>
-        <label for="import-file" class="btn-secondary file-label">Import JSON</label>
-        <input type="file" id="import-file" accept=".json" class="sr-only">
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading">About</h2>
-      <p>A secure, responsive Book & Notes Vault designed for students to track reading goals and study materials.</p>
-      <p>Developer: <a href="https://github.com/Kubanaherve" target="_blank" rel="noopener">@Kubanaherve</a></p>
-    </section>
-    </section>
+              </section>
         
   </main>
 </body>
