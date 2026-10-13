@@ -1,0 +1,112 @@
+[
+  {
+    "id": "rec_01",
+    "title": "Fundamentals of Information Management",
+    "author": "Paul Beynon-Davies",
+    "pages": "450",
+    "tag": "Info-Systems",
+    "dateAdded": "2023-09-01",
+    "createdAt": "2023-09-01T08:00:00Z",
+    "updatedAt": "2023-09-01T08:00:00Z"
+  },
+  {
+    "id": "rec_02",
+    "title": "Advanced Calculus Notes",
+    "author": "Prof Smith",
+    "pages": "45.50",
+    "tag": "Math-Study",
+    "dateAdded": "2024-02-29",
+    "createdAt": "2024-02-29T10:30:00Z",
+    "updatedAt": "2024-02-29T10:30:00Z"
+  },
+  {
+    "id": "rec_03",
+    "title": "Introduction to Algorithms",
+    "author": "Thomas Thomas",
+    "pages": "1312",
+    "tag": "Computer-Science",
+    "dateAdded": "2023-11-15",
+    "createdAt": "2023-11-15T14:15:00Z",
+    "updatedAt": "2023-11-15T14:15:00Z"
+  },
+  {
+    "id": "rec_04",
+    "title": "Database Systems: The Complete Book",
+    "author": "Hector Garcia-Molina",
+    "pages": "1248",
+    "tag": "Databases",
+    "dateAdded": "2022-08-20",
+    "createdAt": "2022-08-20T09:00:00Z",
+    "updatedAt": "2022-08-20T09:00:00Z"
+  },
+  {
+    "id": "rec_05",
+    "title": "Reverse Engineering for Beginners",
+    "author": "Dennis Yurichev",
+    "pages": "1024",
+    "tag": "Cybersecurity-CTF",
+    "dateAdded": "2024-01-10",
+    "createdAt": "2024-01-10T16:45:00Z",
+    "updatedAt": "2024-01-10T16:45:00Z"
+  },
+  {
+    "id": "rec_06",
+    "title": "React and Next.js Mastery",
+    "author": "Frontend Guild",
+    "pages": "315.25",
+    "tag": "Web-Dev",
+    "dateAdded": "2025-05-12",
+    "createdAt": "2025-05-12T11:00:00Z",
+    "updatedAt": "2025-05-12T11:00:00Z"
+  },
+  {
+    "id": "rec_07",
+    "title": "Capstone Project Proposal",
+    "author": "Clay",
+    "pages": "3.5",
+    "tag": "Thesis-Draft",
+    "dateAdded": "2026-02-15",
+    "createdAt": "2026-02-15T09:30:00Z",
+    "updatedAt": "2026-02-15T09:30:00Z"
+  },
+  {
+    "id": "rec_08",
+    "title": "ERPNext & Frappe Framework Guide",
+    "author": "Rushabh Mehta",
+    "pages": "210",
+    "tag": "Enterprise-Software",
+    "dateAdded": "2026-04-10",
+    "createdAt": "2026-04-10T07:00:00Z",
+    "updatedAt": "2026-04-10T07:00:00Z"
+  },
+  {
+    "id": "rec_09",
+    "title": "Clean Architecture",
+    "author": "Robert Martin",
+    "pages": "432",
+    "tag": "Software-Engineering",
+    "dateAdded": "2021-07-22",
+    "createdAt": "2021-07-22T15:20:00Z",
+    "updatedAt": "2021-07-22T15:20:00Z"
+  },
+  {
+    "id": "rec_10",
+    "title": "Academic Writing Strategies",
+    "author": "Alice Oshima",
+    "pages": "320",
+    "tag": "Study-Skills",
+    "dateAdded": "2023-01-05",
+    "createdAt": "2023-01-05T23:50:00Z",
+    "updatedAt": "2023-01-05T23:50:00Z"
+  },
+  {
+    "id": "rec_11",
+    "title": "Discrete Mathematics",
+    "author": "Kenneth Rosen",
+    "pages": "1071",
+    "tag": "Math-Foundations",
+    "dateAdded": "2024-08-30",
+    "createdAt": "2024-08-30T08:15:00Z",
+    "updatedAt": "2024-08-30T08:15:00Z"
+  }
+]
