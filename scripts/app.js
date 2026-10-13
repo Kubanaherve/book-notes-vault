@@ -67,3 +67,38 @@ document.getElementById('cancel-edit').addEventListener('click', () => {
   editingId = null;
   document.getElementById('cancel-edit').classList.add('hidden');
 });
+document.getElementById('save-goal').addEventListener('click', () => {
+  const goal = Number(document.getElementById('page-goal').value);
+  if (goal > 0) {
+    state.updateGoal(goal);
+    announce("Goal updated.");
+    refreshUI();
+  }
+});
+
+document.getElementById('unit-toggle').addEventListener('change', (e) => {
+  state.updateUnit(e.target.value);
+  refreshUI();
+});
+
+document.getElementById('export-btn').addEventListener('click', () => exportJSON(state.records));
+
+document.getElementById('import-file').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const data = JSON.parse(event.target.result);
+      if (Array.isArray(data) && data.every(r => r.id && r.title)) {
+        state.records = data;
+        state.records.forEach(r => state.updateRecord(r.id, r));
+        refreshUI();
+        announce("Data imported successfully.");
+      } else { throw new Error("Invalid format"); }
+    } catch (err) {
+      announce("Failed to import JSON. Invalid format.", "assertive");
+    }
+  };
+  reader.readAsText(file);
+});
