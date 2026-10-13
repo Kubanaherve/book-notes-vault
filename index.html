@@ -80,7 +80,76 @@
     </section>
      
 
+<!-- Add/Edit Form Section -->
+    <section id="form-section" aria-labelledby="form-heading">
+      <h2 id="form-heading">Add / Edit Entry</h2>
+      <form id="record-form" novalidate>
+        <input type="hidden" id="record-id">
 
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input type="text" id="title" required aria-describedby="title-error">
+          <span class="error-msg" id="title-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author *</label>
+          <input type="text" id="author" required aria-describedby="author-error">
+          <span class="error-msg" id="author-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="pages">Pages (or Minutes) *</label>
+          <input type="text" id="pages" required aria-describedby="pages-error">
+          <span class="error-msg" id="pages-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="tag">Tag (e.g., Fiction, Study-Notes) *</label>
+          <input type="text" id="tag" required aria-describedby="tag-error">
+          <span class="error-msg" id="tag-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="dateAdded">Date Added (YYYY-MM-DD) *</label>
+          <input type="text" id="dateAdded" required aria-describedby="date-error">
+          <span class="error-msg" id="date-error"></span>
+        </div>
+
+        <button type="submit" class="btn-primary">Save Entry</button>
+        <button type="button" id="cancel-edit" class="btn-secondary hidden">Cancel Edit</button>
+      </form>
+
+      </section>
+
+    <!-- Settings Section -->
+    <section id="settings" aria-labelledby="settings-heading">
+      <h2 id="settings-heading">Settings & Data Management</h2>
+      <div class="form-group">
+        <label for="page-goal">Reading Goal (Pages Cap):</label>
+        <input type="number" id="page-goal" value="1000">
+        <button id="save-goal" class="btn-secondary">Update Goal</button>
+      </div>
+      <div class="form-group">
+        <label for="unit-toggle">Display Units As:</label>
+        <select id="unit-toggle">
+          <option value="pages">Pages</option>
+          <option value="minutes">Minutes (1 page = 2 mins)</option>
+        </select>
+      </div>
+      <div class="data-controls">
+        <button id="export-btn" class="btn-secondary">Export JSON</button>
+        <label for="import-file" class="btn-secondary file-label">Import JSON</label>
+        <input type="file" id="import-file" accept=".json" class="sr-only">
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p>A secure, responsive Book & Notes Vault designed for students to track reading goals and study materials.</p>
+      <p>Developer: <a href="https://github.com/Kubanaherve" target="_blank" rel="noopener">@Kubanaherve</a></p>
+    </section>
+    </section>
+        
   </main>
 </body>
 </html>
