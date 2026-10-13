@@ -1,4 +1,4 @@
-# � Book & Notes Vault
+#  Book & Notes Vault
 
 A simple web application for organizing books and academic notes.
 
