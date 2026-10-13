@@ -1,0 +1,30 @@
+/* Custom Properties & Reset */
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-color: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --error: #ef4444;
+  --success: #10b981;
+  --border: #e2e8f0;
+  --surface: #ffffff;
+  --mark-bg: #fde047;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+
+/* Accessibility - Skip Link & Screen Reader Only */
+.skip-link { position: absolute; top: -40px; left: 0; background: var(--primary); color: white; padding: 8px; z-index: 100; transition: top 0.2s; }
+.skip-link:focus { top: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+*:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+/* Layout - Mobile First */
+header { background: var(--surface); padding: 1rem; border-bottom: 1px solid var(--border); text-align: center; }
+nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
+nav a { text-decoration: none; color: var(--primary); font-weight: 600; }
+main { padding: 1rem; max-width: 1000px; margin: 0 auto; }
+section { background: var(--surface); margin-bottom: 1.5rem; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+h1, h2 { margin-bottom: 1rem; }
