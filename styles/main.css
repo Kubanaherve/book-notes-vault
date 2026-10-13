@@ -1,108 +1,391 @@
 /* Custom Properties & Reset */
 :root {
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --bg-color: #f8fafc;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --error: #ef4444;
-  --success: #10b981;
-  --border: #e2e8f0;
-  --surface: #ffffff;
+  --primary: #1d5146; /* Deep scholarly green */
+  --primary-hover: #164037;
+  --accent: #d97706; /* Scholarly Gold */
+  --bg-color: #f3f6f4;
+  --text-main: #111827;
+  --text-muted: #4b5563;
+  --error: #b91c1c;
+  --success: #15803d;
+  --border: #d1dcd6;
+  --surface: rgba(255, 255, 255, 0.94); /* Glass-like surface translucency */
   --mark-bg: #fde047;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
 
-/* Accessibility - Skip Link & Screen Reader Only */
-.skip-link { position: absolute; top: -40px; left: 0; background: var(--primary); color: white; padding: 8px; z-index: 100; transition: top 0.2s; }
-.skip-link:focus { top: 0; }
+/* Immersive Background Wallpaper */
+body { 
+  font-family: system-ui, -apple-system, sans-serif; 
+  background-image: 
+    linear-gradient(rgba(243, 246, 244, 0.92), rgba(243, 246, 244, 0.92)), /* Light overlay to secure AA text contrast */
+    url('../assets/graduation.jpg'); /* Set your visual here */
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  color: var(--text-main); 
+  line-height: 1.6; 
+}
+
+/* Accessibility */
+.skip-link { position: absolute; top: -100px; left: 1rem; background: var(--primary); color: #fff; padding: 0.7rem 1rem; border-radius: 8px; z-index: 100; transition: top 0.2s; }
+.skip-link:focus { top: 1rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-*:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+*:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-/* Layout - Mobile First */
-header { background: var(--surface); padding: 1rem; border-bottom: 1px solid var(--border); text-align: center; }
-nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
-nav a { text-decoration: none; color: var(--primary); font-weight: 600; }
-main { padding: 1rem; max-width: 1000px; margin: 0 auto; }
-section { background: var(--surface); margin-bottom: 1.5rem; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-h1, h2 { margin-bottom: 1rem; }
+/* Site Header */
+header { background: var(--surface); backdrop-filter: blur(8px); border-bottom: 1.5px solid var(--border); padding: 1.25rem 1rem; text-align: center; }
+.header-inner { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+.brand { font-size: 1.35rem; font-weight: 850; text-decoration: none; color: var(--primary); letter-spacing: -0.03em; }
+.brand span { color: var(--accent); }
+nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+nav a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.75rem; border-radius: 8px; transition: background 0.2s; }
+nav a:hover { background: rgba(29, 81, 70, 0.08); color: var(--primary); }
 
-/* Forms & Buttons */
-input, select, button { padding: 0.6rem; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; width: 100%; margin-bottom: 0.5rem; }
-button { background: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; transition: background-color 0.2s ease, transform 0.1s ease; }
-button:hover { background: var(--primary-hover); transform: translateY(-2px); }
+/* Layout Shell */
+main { padding: 1rem; max-width: 1050px; margin: 0 auto; }
+section { background: var(--surface); backdrop-filter: blur(6px); margin-bottom: 2rem; padding: 1.5rem; border-radius: 12px; border: 1.5px solid var(--border); box-shadow: 0 4px 20px rgba(29, 81, 70, 0.04); }
+h1, h2, h3 { margin-bottom: 1rem; letter-spacing: -0.02em; }
+.eyebrow { font-size: 0.75rem; font-weight: 800; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 0.5rem; text-transform: uppercase; }
 
-/* Book Records Grid & Animation */
-.book-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-.book-card { padding: 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); animation: fadeUp 0.3s ease-out forwards; }
-mark { background: var(--mark-bg); padding: 0 0.2em; border-radius: 3px; }
+/* The Welcome Image Component */
+.welcome { display: flex; flex-direction: column; gap: 1.5rem; }
+.welcome-copy { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.25rem; max-width: 550px; }
+.welcome-image-container { display: flex; justify-content: center; width: 100%; max-width: 320px; margin: 0 auto; transform: rotate(1.5deg); }
+.welcome-image { width: 100%; border-radius: 14px; border: 4px solid #fff; box-shadow: 0 10px 28px rgba(0,0,0,0.18); transform: translateY(0); transition: transform 0.3s ease; }
+.welcome-image:hover { transform: translateY(-4px) rotate(-1deg); }
 
+/* Forms & Inputs */
+input, select, button {
+  padding: 0.65rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  width: 100%;
+  margin-bottom: 0.6rem;
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.check-label input {
+  width: 18px;
+  min-height: 18px;
+  margin: 0;
+}
+
+/* Form Error States */
+input[aria-invalid="true"] {
+  border-color: var(--error);
+  background-color: #fef2f2;
+}
+
+.error-message {
+  color: var(--error);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: block;
+  margin-top: 0.1rem;
+  margin-bottom: 0.4rem;
+}
+
+/* Grid Dashboard Metric Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  padding: 1.25rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+}
+
+.stat-card p {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 1.85rem;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.stat-card span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 0.15rem;
+}
+
+/* Dashboard Trends Chart */
+.activity-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 130px;
+  margin-top: 1rem;
+  border-bottom: 1.5px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.chart-day {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  gap: 4px;
+}
+
+.chart-bar-wrap {
+  width: 100%;
+  height: 95px;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
+}
+
+.chart-bar {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s ease;
+  min-height: 2px;
+}
+
+/* Progress Targets */
+.progress-track {
+  height: 10px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--success);
+  width: 0;
+  transition: width 0.4s ease;
+}
+
+/* Book Records Lists & Animated Cards */
+.book-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.book-card {
+  padding: 1.25rem;
+  border: 1.5px solid var(--border);
+  border-left: 6px solid var(--primary);
+  border-radius: 10px;
+  background: var(--surface);
+  animation: fadeUp 0.35s ease-out forwards;
+}
+
+.book-card h3 {
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+  font-size: 1.15rem;
+}
+
+.book-author {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.book-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.tag-pill {
+  background: rgba(29, 81, 70, 0.07);
+  color: var(--primary);
+  border-radius: 99px;
+  padding: 0.2rem 0.6rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.book-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.book-actions .button {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.delete-button {
+  border-color: rgba(185, 28, 28, 0.2);
+  background: rgba(185, 28, 28, 0.05);
+  color: var(--error);
+}
+
+.delete-button:hover {
+  background: var(--error);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+mark {
+  background: var(--mark-bg);
+  color: var(--text-main);
+  padding: 0 0.15em;
+  border-radius: 2px;
+}
+
+/* Settings Panels & conversions */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.settings-card {
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+}
+
+.conversion-result {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.conversion-result strong {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+/* Animation Rule */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Rubric Requirement: ≥3 Breakpoints */
-@media (min-width: 560px) {
-  .book-grid { grid-template-columns: repeat(2, 1fr); }
-  form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  button[type="submit"] { grid-column: span 2; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
- 
+
+/* Media Breakpoints - Scaling to Large Viewports */
+@media (min-width: 560px) {
+  .welcome {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .welcome-image-container {
+    flex: 0 0 240px;
+    margin: 0;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  button[type="submit"] {
+    grid-column: span 2;
+  }
+}
+
 @media (min-width: 768px) {
-  .book-grid { grid-template-columns: repeat(3, 1fr); }
-  nav ul { justify-content: flex-end; }
+  .header-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  nav {
+    justify-content: flex-end;
+  }
+  
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .settings-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 1024px) {
-  main { padding: 2rem 1rem; }
-  section { padding: 2rem; }
+  .book-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .settings-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-/* --- Missing Component Classes --- */
 
-/* Fix Navigation (Remove the 'ul' target) */
-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
 
-/* Fix Links acting as Buttons */
-.button { 
-  display: inline-block; 
-  text-align: center; 
-  text-decoration: none; 
-  padding: 0.6rem 1rem; 
-  border-radius: 6px; 
-  background: var(--primary); 
-  color: white; 
-  font-weight: 600; 
-  cursor: pointer; 
-  transition: background-color 0.2s ease, transform 0.1s ease; 
-}
-.button-light { background: var(--surface); color: var(--primary); border: 1px solid var(--border); }
-.button:hover { background: var(--primary-hover); color: white; transform: translateY(-2px); }
-.button-light:hover { background: var(--bg-color); }
 
-/* Dashboard & Stats Cards */
-.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-.stat-card { background: var(--surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); }
-.stat-card strong { display: block; font-size: 1.5rem; color: var(--primary); }
-.error-message { color: var(--error); font-size: 0.85rem; display: block; margin-top: 0.25rem; }
-
-/* Activity Chart (Required by your app.js) */
-.activity-chart { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin-top: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
-.chart-day { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; font-size: 0.75rem; color: var(--text-muted); gap: 4px; }
-.chart-bar-wrap { width: 100%; height: 90px; display: flex; align-items: flex-end; background: var(--border); border-radius: 4px 4px 0 0; }
-.chart-bar { width: 100%; background: var(--primary); border-radius: 4px 4px 0 0; transition: height 0.4s ease; }
-
-/* Progress Target */
-.progress-track { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; margin: 10px 0; }
-.progress-fill { height: 100%; background: var(--success); width: 0; transition: width 0.4s; }
-
-/* Form Error States */
-input[aria-invalid="true"] { border-color: var(--error); background-color: #fef2f2; }
-@media (min-width: 560px) {
-  .book-grid { grid-template-columns: repeat(2, 1fr); }
-  .stats-grid { grid-template-columns: repeat(4, 1fr); }
-  form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  button[type="submit"] { grid-column: span 2; }
-}

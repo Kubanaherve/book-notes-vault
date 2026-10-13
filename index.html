@@ -5,50 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book & Notes Vault</title>
   <link rel="stylesheet" href="styles/main.css">
+  <!-- FIXED: Linked your JavaScript so the app actually works -->
+  <script type="module" src="scripts/app.js"></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header>
-    <h1>Book & Notes Vault</h1>
-    <nav aria-label="Main Navigation">
-      <ul>
-        <li><a href="#dashboard">Dashboard</a></li>
-        <li><a href="#vault">Vault</a></li>
-        <li><a href="#form-section">Add Note</a></li>
-        <li><a href="#settings">Settings</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#">Book <span>&</span> Notes Vault</a>
+      <nav aria-label="Main Navigation">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#vault">Vault</a>
+        <a href="#form-section">Add Note</a>
+        <a href="#settings">Settings</a>
+      </nav>
+    </div>
   </header>
+
   <!-- ARIA Live Regions for Accessibility Announcements -->
   <div id="aria-polite" class="sr-only" aria-live="polite"></div>
   <div id="aria-assertive" class="sr-only" aria-live="assertive"></div>
 
   <main id="main-content">
+
+    <!-- ADDED: The Graduation Image -->
+    <section class="welcome panel">
+      <div class="welcome-image-container" aria-hidden="true">
+        <img src="assets/graduation.jpg" alt="Graduation cap and stack of books" class="welcome-image">
+      </div>
+    </section>
    
     <!-- Dashboard Section -->
-    <section id="dashboard" aria-labelledby="dashboard-heading">
+    <section id="dashboard" class="section-block panel" aria-labelledby="dashboard-heading">
       <h2 id="dashboard-heading">Stats & Dashboard</h2>
       <div class="stats-grid">
-        <div class="stat-card"><otal Books/Notes: <span id="stat-total">0</span></div>
-        <div class="stat-card">Total Pages: <span id="stat-pages">0</span></div>
-        <div class="stat-card">Top Tag: <span id="stat-tag">N/A</span></div>
+        <!-- FIXED: Typo on "Total" -->
+        <div class="stat-card">Total Books/Notes: <strong id="stat-total">0</strong></div>
+        <div class="stat-card">Total Pages: <strong id="stat-pages">0</strong></div>
+        <div class="stat-card">Top Tag: <strong id="stat-tag">N/A</strong></div>
       </div>
-      <div class="cap-tracker">
+      <div class="cap-tracker" style="margin-top: 1rem;">
         Reading Goal (Pages): <span id="goal-status">Loading...</span>
       </div>
-      </section>
+    </section>
 
-      <!-- Vault Table / Search -->
-    <section id="vault" aria-labelledby="vault-heading">
+    <!-- Vault Table / Search -->
+    <section id="vault" class="section-block" aria-labelledby="vault-heading">
       <h2 id="vault-heading">My Vault</h2>
-      <div class="controls">
-             <div class="search-group">
+      <div class="controls panel">
+        <div class="search-group">
           <label for="search-input">Regex Search:</label>
           <input type="text" id="search-input" placeholder="e.g., \b(\w+)\s+\1\b">
-          <label><input type="checkbox" id="search-case" checked> Case Insensitive</label>
+          <label class="check-label"><input type="checkbox" id="search-case" checked> Case Insensitive</label>
         </div>
-         <div class="sort-group">
+        <div class="sort-group" style="margin-top: 1rem;">
           <label for="sort-select">Sort By:</label>
           <select id="sort-select">
             <option value="dateAdded-desc">Date (Newest First)</option>
@@ -58,16 +68,17 @@
           </select>
         </div>
       </div>
-   <div class="table-responsive">
-        <table id="records-table">
+      
+      <div class="table-responsive panel" style="margin-top: 1.5rem; overflow-x: auto;">
+        <table id="records-table" style="width: 100%; text-align: left; border-collapse: collapse;">
           <thead>
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Pages/Duration</th>
-              <th>Tag</th>
-              <th>Date Added</th>
-              <th>Actions</th>
+            <tr style="border-bottom: 2px solid var(--border);">
+              <th style="padding: 10px;">Title</th>
+              <th style="padding: 10px;">Author</th>
+              <th style="padding: 10px;">Pages</th>
+              <th style="padding: 10px;">Tag</th>
+              <th style="padding: 10px;">Date</th>
+              <th style="padding: 10px;">Actions</th>
             </tr>
           </thead>
           <tbody id="records-body">
@@ -77,49 +88,82 @@
       </div>
     </section>
 
-    </section>
-     
-
-<!-- Add/Edit Form Section -->
-    <section id="form-section" aria-labelledby="form-heading">
+    <!-- Add/Edit Form Section -->
+    <section id="form-section" class="section-block panel" aria-labelledby="form-heading">
       <h2 id="form-heading">Add / Edit Entry</h2>
       <form id="record-form" novalidate>
         <input type="hidden" id="record-id">
 
+        <!-- FIXED: Added the missing Title, Author, and Pages inputs -->
         <div class="form-group">
           <label for="title">Title *</label>
+          <input type="text" id="title" required aria-describedby="title-error">
+          <span class="error-message" id="title-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author *</label>
+          <input type="text" id="author" required aria-describedby="author-error">
+          <span class="error-message" id="author-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="pages">Pages *</label>
+          <input type="number" id="pages" required aria-describedby="pages-error">
+          <span class="error-message" id="pages-error"></span>
+        </div>
+
+        <div class="form-group">
           <label for="tag">Tag (e.g., Fiction, Study-Notes) *</label>
           <input type="text" id="tag" required aria-describedby="tag-error">
-          <span class="error-msg" id="tag-error"></span>
+          <span class="error-message" id="tag-error"></span>
         </div>
 
         <div class="form-group">
           <label for="dateAdded">Date Added (YYYY-MM-DD) *</label>
-          <input type="text" id="dateAdded" required aria-describedby="date-error">
-          <span class="error-msg" id="date-error"></span>
+          <input type="date" id="dateAdded" required aria-describedby="date-error">
+          <span class="error-message" id="date-error"></span>
         </div>
 
-        <button type="submit" class="btn-primary">Save Entry</button>
-        <button type="button" id="cancel-edit" class="btn-secondary hidden">Cancel Edit</button>
+        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+          <button type="submit" class="button button-primary">Save Entry</button>
+          <button type="button" id="cancel-edit" class="button button-light hidden">Cancel Edit</button>
+        </div>
       </form>
-      </section>
+    </section>
 
     <!-- Settings Section -->
-    <section id="settings" aria-labelledby="settings-heading">
+    <section id="settings" class="section-block panel" aria-labelledby="settings-heading">
       <h2 id="settings-heading">Settings & Data Management</h2>
       <div class="form-group">
         <label for="page-goal">Reading Goal (Pages Cap):</label>
         <input type="number" id="page-goal" value="1000">
-        <button id="save-goal" class="btn-secondary">Update Goal</button>
+        <button id="save-goal" class="button button-primary">Update Goal</button>
       </div>
       <div class="form-group">
         <label for="unit-toggle">Display Units As:</label>
         <select id="unit-toggle">
           <option value="pages">Pages</option>
           <option value="minutes">Minutes (1 page = 2 mins)</option>
-              </section>
+        <!-- FIXED: Added missing closing tags -->
+        </select>
+      </div>
+    </section>
         
   </main>
 </body>
 </html>
+
+
+  
+  
+  
+     
+
+
+
+    
+
+        
+  
 
