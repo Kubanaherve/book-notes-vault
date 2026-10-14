@@ -135,11 +135,17 @@
 
     <!-- Settings Section -->
     <section id="settings" class="section-block panel" aria-labelledby="settings-heading">
-      <div class="form-group action-group">
+    <div class="form-group action-group">
           <button id="export-btn" class="button button-primary">Export JSON</button>
-          <label for="import-file" class="button button-light">Import JSON</label>
+
+           <label for="import-file" class="button button-light">
+                Import JSON
+          </label>
+
           <input type="file" id="import-file" class="sr-only" accept=".json">
-        </div>
+
+         <p id="import-message" role="status" aria-live="polite"></p>
+      </div>
       <h2 id="settings-heading">Settings & Data Management</h2>
       <div class="form-group">
         <label for="page-goal">Reading Goal (Pages Cap):</label>
