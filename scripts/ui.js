@@ -55,20 +55,23 @@ export function updateStats(records) {
   document.getElementById('stat-pages').textContent = isMinutes ? (totalPages * 2) + " mins" : totalPages;
   document.getElementById('stat-tag').textContent = topTag;
 
-  const goal = state.settings.goal;
-  const tracker = document.querySelector('.cap-tracker');
-  const statusSpan = document.getElementById('goal-status');
-  
-  if (totalPages > goal) {
+  const goal = Number(state.settings?.goal) || 0;
+const tracker = document.querySelector('.cap-tracker');
+const statusSpan = document.getElementById('goal-status');
+
+if (tracker && statusSpan) {
+  if (goal <= 0) {
+    tracker.classList.remove('exceeded');
+    statusSpan.textContent = 'Set a reading goal to start tracking.';
+  } else if (totalPages > goal) {
     tracker.classList.add('exceeded');
     statusSpan.textContent = `${totalPages} / ${goal} (Exceeded by ${totalPages - goal})`;
-    announce(`Reading goal exceeded by ${totalPages - goal} pages.`, 'assertive');
   } else {
     tracker.classList.remove('exceeded');
     statusSpan.textContent = `${totalPages} / ${goal} (${goal - totalPages} remaining)`;
   }
 }
 
-
+}
 
 
