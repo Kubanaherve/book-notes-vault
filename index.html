@@ -44,7 +44,7 @@
         <div class="stat-card">Total Pages: <strong id="stat-pages">0</strong></div>
         <div class="stat-card">Top Tag: <strong id="stat-tag">N/A</strong></div>
       </div>
-      <div class="cap-tracker" style="margin-top: 1rem;">
+      <div class="cap-tracker" >
         Reading Goal (Pages): <span id="goal-status">Loading...</span>
       </div>
     </section>
@@ -58,7 +58,7 @@
           <input type="text" id="search-input" placeholder="e.g., \b(\w+)\s+\1\b">
           <label class="check-label"><input type="checkbox" id="search-case" checked> Case Insensitive</label>
         </div>
-        <div class="sort-group" style="margin-top: 1rem;">
+        <div class="sort-group" 
           <label for="sort-select">Sort By:</label>
           <select id="sort-select">
             <option value="dateAdded-desc">Date (Newest First)</option>
@@ -69,16 +69,17 @@
         </div>
       </div>
       
-      <div class="table-responsive panel" style="margin-top: 1.5rem; overflow-x: auto;">
-        <table id="records-table" style="width: 100%; text-align: left; border-collapse: collapse;">
+      <div class="table-responsive panel" >
+        <table id="records-table" >
+          <caption class="sr-only">My Vault Records</caption>
           <thead>
-            <tr style="border-bottom: 2px solid var(--border);">
-              <th style="padding: 10px;">Title</th>
-              <th style="padding: 10px;">Author</th>
-              <th style="padding: 10px;">Pages</th>
-              <th style="padding: 10px;">Tag</th>
-              <th style="padding: 10px;">Date</th>
-              <th style="padding: 10px;">Actions</th>
+            <tr >
+              <th >Title</th>
+              <th>Author</th>
+              <th>Pages</th>
+              <th>Tag</th>
+              <th>Date</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="records-body">
@@ -122,10 +123,10 @@
         <div class="form-group">
           <label for="dateAdded">Date Added (YYYY-MM-DD) *</label>
           <input type="date" id="dateAdded" required aria-describedby="date-error">
-          <span class="error-message" id="date-error"></span>
+          <span class="error-message" id="dateAdded-error"></span>
         </div>
 
-        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+        <div>
           <button type="submit" class="button button-primary">Save Entry</button>
           <button type="button" id="cancel-edit" class="button button-light hidden">Cancel Edit</button>
         </div>
@@ -134,6 +135,11 @@
 
     <!-- Settings Section -->
     <section id="settings" class="section-block panel" aria-labelledby="settings-heading">
+      <div class="form-group action-group">
+          <button id="export-btn" class="button button-primary">Export JSON</button>
+          <label for="import-file" class="button button-light">Import JSON</label>
+          <input type="file" id="import-file" class="sr-only" accept=".json">
+        </div>
       <h2 id="settings-heading">Settings & Data Management</h2>
       <div class="form-group">
         <label for="page-goal">Reading Goal (Pages Cap):</label>

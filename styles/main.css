@@ -386,6 +386,26 @@ mark {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 10px;
+  border-bottom: 2px solid var(--border);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.action-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
 
 
 
