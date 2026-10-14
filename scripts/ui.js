@@ -26,12 +26,12 @@ export function renderTable(records, searchRegex) {
     if (isMinutes) displayPages = (displayPages * 2) + " mins";
     
     tr.innerHTML = `
-      <td>${highlight(record.title, searchRegex)}</td>
-      <td>${highlight(record.author, searchRegex)}</td>
-      <td>${displayPages}</td>
-      <td>${highlight(record.tag, searchRegex)}</td>
-      <td>${highlight(record.dateAdded, searchRegex)}</td>
-      <td class="action-btns">
+      <td data-label="Title">${highlight(record.title, searchRegex)}</td>
+      <td data-label="Author">${highlight(record.author, searchRegex)}</td>
+      <td data-label="Pages">${displayPages}</td>
+      <td data-label="Tag">${highlight(record.tag, searchRegex)}</td>
+      <td data-label="Date">${highlight(record.dateAdded, searchRegex)}</td>
+      <td data-label="Actions" class="action-btns">
         <button class="btn-edit" data-id="${record.id}" aria-label="Edit ${record.title}">Edit</button>
         <button class="btn-delete" data-id="${record.id}" aria-label="Delete ${record.title}">Delete</button>
       </td>
@@ -39,6 +39,7 @@ export function renderTable(records, searchRegex) {
     tbody.appendChild(tr);
   });
 }
+
 
 export function updateStats(records) {
   const total = records.length;
@@ -67,3 +68,7 @@ export function updateStats(records) {
     statusSpan.textContent = `${totalPages} / ${goal} (${goal - totalPages} remaining)`;
   }
 }
+
+
+
+

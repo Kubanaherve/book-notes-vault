@@ -1,15 +1,30 @@
 import { state } from './storage.js';
 import { validateRecord, repeatedWordRegex } from './validators.js';
+import { renderTable, updateStats, announce } from './ui.js';
 
 // We need to know if the user is editing an existing book. 
 // If this is null, it means they are adding a brand new book.
 let currentEditId = null; 
 
 // Run this as soon as the HTML finishes loading
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   console.log("App loaded. Refreshing the screen...");
+
+  // Fetch seed data if localStorage is empty
+  if (state.records.length === 0) {
+    try {
+      const response = await fetch('./seed.json');
+      const seedData = await response.json();
+      state.records = seedData;
+      // Save it to localStorage so it persists
+      localStorage.setItem('bookVault:data', JSON.stringify(seedData));
+    } catch (error) {
+      console.error("Failed to load seed data:", error);
+    }
+  }
+
   refreshUI();
-  
+ 
   // Try to load user settings if they already exist in local storage
   if (state.settings) {
     const goalInput = document.getElementById('page-goal');
@@ -298,26 +313,12 @@ if (sortDropdown) {
   });
 }
 
-// ---------------------------------------------------------
-// UI Rendering Functions
-// ---------------------------------------------------------
-
-// Helper function to update everything at once
 function refreshUI() {
-  renderTable();
-  updateStats();
-}
-
-function renderTable() {
-  const tbody = document.getElementById('records-body');
-  if (!tbody) return;
-  
-  tbody.innerHTML = ''; // Wipe the table clean before rebuilding
-  const records = state.records || [];
-  
   let filterRegex = null;
-  
-  // Setup the regex search if the user typed something
+  const searchBox = document.getElementById('search-input');
+  const searchCaseBox = document.getElementById('search-case');
+
+  // Grab and compile the regex search pattern
   if (searchBox && searchBox.value.trim() !== '') {
     try {
       const isCaseInsensitive = searchCaseBox ? searchCaseBox.checked : true;
@@ -327,164 +328,15 @@ function renderTable() {
       searchBox.classList.remove('invalid-input');
       searchBox.removeAttribute('aria-invalid');
     } catch (e) {
-      // If they typed a broken regex pattern, show a red border
       searchBox.classList.add('invalid-input');
       searchBox.setAttribute('aria-invalid', 'true');
     }
   }
 
-  // Show a friendly message if the vault is empty
-  if (records.length === 0) {
-    const tr = document.createElement('tr');
-    const td = document.createElement('td');
-    td.colSpan = 6;
-    td.textContent = "Your vault is empty. Add a book or note below.";
-    td.style.textAlign = "center";
-    td.style.padding = "2rem";
-    td.style.color = "var(--text-muted)";
-    tr.appendChild(td);
-    tbody.appendChild(tr);
-    return;
-  }
-
-  // Build the table rows securely
-  records.forEach(book => {
-    // Check if the book matches the search filter
-    if (filterRegex) {
-      const textToSearch = `${book.title} ${book.author} ${book.tag}`;
-      if (!filterRegex.test(textToSearch)) {
-        return; // Skip this book if it doesn't match
-      }
-    }
-
-    const row = document.createElement('tr');
-    row.style.borderBottom = "1px solid var(--border)";
-    
-    const tdTitle = document.createElement('td');
-    tdTitle.textContent = book.title;
-    tdTitle.style.padding = "10px";
-    
-    const tdAuthor = document.createElement('td');
-    tdAuthor.textContent = book.author;
-    tdAuthor.style.padding = "10px";
-    
-    // Figure out if we are showing pages or minutes
-    const tdPages = document.createElement('td');
-    let displayValue = book.pages;
-    let unitLabel = ' pgs';
-    
-    if (state.settings && state.settings.unit === 'minutes') {
-      displayValue = book.pages * 2; // Assuming 2 mins per page
-      unitLabel = ' mins';
-    }
-    
-    tdPages.textContent = displayValue + unitLabel;
-    tdPages.style.padding = "10px";
-    
-    const tdTag = document.createElement('td');
-    tdTag.textContent = book.tag;
-    tdTag.style.padding = "10px";
-    
-    const tdDate = document.createElement('td');
-    tdDate.textContent = book.dateAdded;
-    tdDate.style.padding = "10px";
-    
-    // Create the Action Buttons (Edit and Delete)
-    const tdActions = document.createElement('td');
-    tdActions.style.padding = "10px";
-    
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Edit';
-    editBtn.className = 'btn-edit button button-light';
-    editBtn.dataset.id = book.id;
-    editBtn.style.marginRight = '8px';
-    editBtn.style.padding = '5px 10px';
-    
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.className = 'btn-delete button button-light delete-button';
-    deleteBtn.dataset.id = book.id;
-    deleteBtn.style.padding = '5px 10px';
-    
-    tdActions.appendChild(editBtn);
-    tdActions.appendChild(deleteBtn);
-    
-    // Put everything together and add it to the table
-    row.appendChild(tdTitle);
-    row.appendChild(tdAuthor);
-    row.appendChild(tdPages);
-    row.appendChild(tdTag);
-    row.appendChild(tdDate);
-    row.appendChild(tdActions);
-    
-    tbody.appendChild(row);
-  });
+  // Pass the state and the regex pattern to your ui.js functions
+  renderTable(state.records, filterRegex);
+  updateStats(state.records);
 }
-
-function updateStats() {
-  const records = state.records || [];
-  
-  const statTotal = document.getElementById('stat-total');
-  const statPages = document.getElementById('stat-pages');
-  const statTag = document.getElementById('stat-tag');
-  const goalStatus = document.getElementById('goal-status');
-  
-  if (statTotal) {
-    statTotal.textContent = records.length;
-  }
-  
-  let totalPages = 0;
-  const tagCounts = {};
-  let topTag = 'N/A';
-  let maxCount = 0;
-  
-  // Calculate total pages and figure out the most popular tag
-  records.forEach(book => {
-    const pages = parseInt(book.pages, 10) || 0;
-    totalPages += pages;
-    
-    if (book.tag) {
-      tagCounts[book.tag] = (tagCounts[book.tag] || 0) + 1;
-      if (tagCounts[book.tag] > maxCount) {
-        maxCount = tagCounts[book.tag];
-        topTag = book.tag;
-      }
-    }
-  });
-  
-  if (statPages) {
-    statPages.textContent = totalPages;
-  }
-  
-  if (statTag) {
-    statTag.textContent = topTag;
-  }
-  
-  // Update the progress tracker based on their settings
-  if (goalStatus && state.settings && state.settings.goal) {
-    const goal = parseInt(state.settings.goal, 10);
-    const percentage = Math.min(Math.round((totalPages / goal) * 100), 100);
-    goalStatus.textContent = `${totalPages} / ${goal} (${percentage}%)`;
-  }
-}
-
-// Read text out loud for users relying on screen readers (Accessibility Rubric)
-function announce(message, priority = 'polite') {
-  const regionId = priority === 'assertive' ? 'aria-assertive' : 'aria-polite';
-  const screenReaderBox = document.getElementById(regionId);
-  
-  if (screenReaderBox) {
-    screenReaderBox.textContent = ''; // clear it first
-    setTimeout(() => {
-      screenReaderBox.textContent = message;
-    }, 50);
-  }
-}
-
-
-
-
-  
 
 
 
