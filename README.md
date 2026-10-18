@@ -19,7 +19,7 @@ An accessible, responsive, mobile-first vanilla HTML/CSS/JavaScript web applicat
 
 - **🌐 Live GitHub Pages Website:** [https://kubanaherve.github.io/book-notes-vault/](https://kubanaherve.github.io/book-notes-vault/)
 - **📦 GitHub Repository:** [https://github.com/Kubanaherve/book-notes-vault](https://github.com/Kubanaherve/book-notes-vault)
-- **🎬 Demo Video (2–3 min, unlisted):** [https://youtu.be/placeholder-demo-video](https://youtu.be/placeholder-demo-video) *(or Google Drive unlisted link)*
+- **🎬 Demo Video (2–3 min, unlisted):** [https://youtu.be/placeholder-demo-video]((https://youtu.be/WVAo99xZUfw)) 
 
 ---
 
