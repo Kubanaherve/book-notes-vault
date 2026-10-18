@@ -3,179 +3,524 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book & Notes Vault</title>
+  <meta name="theme-color" content="#0b1120">
+  <meta name="description" content="Organize your books, study notes, and reading progress in one accessible personal library.">
+  <title>Book &amp; Notes Vault</title>
   <link rel="stylesheet" href="styles/main.css">
-  <!-- FIXED: Linked your JavaScript so the app actually works -->
   <script type="module" src="scripts/app.js"></script>
 </head>
 <body>
+  <!-- Accessible Skip-to-Content Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header with Brand, Navigation, and Theme Switcher -->
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#">Book <span>&</span> Notes Vault</a>
-      <nav aria-label="Main Navigation">
+      <a class="brand" href="#about" aria-label="Book and Notes Vault Home">
+        <span aria-hidden="true">▤</span>
+        Book <span class="brand-accent">&amp;</span> Notes Vault
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
         <a href="#dashboard">Dashboard</a>
-        <a href="#vault">Vault</a>
-        <a href="#form-section">Add Note</a>
+        <a href="#vault">My Vault</a>
+        <a href="#form-section">Add Entry</a>
         <a href="#settings">Settings</a>
       </nav>
+      <button
+        type="button"
+        id="theme-toggle"
+        class="theme-toggle"
+        aria-label="Switch to dark mode"
+        aria-pressed="false"
+      >
+        <span class="theme-icon" aria-hidden="true">🌙</span>
+        <span class="theme-label">Dark</span>
+      </button>
     </div>
   </header>
 
-  <!-- ARIA Live Regions for Accessibility Announcements -->
-  <div id="aria-polite" class="sr-only" aria-live="polite"></div>
-  <div id="aria-assertive" class="sr-only" aria-live="assertive"></div>
+  <!-- Global ARIA Live Regions for Polite and Assertive Announcements -->
+  <div id="aria-polite" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="aria-assertive" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
+  <!-- Main Content Landmark -->
   <main id="main-content">
-
-    <!-- ADDED: The Graduation Image -->
-    <section class="welcome panel">
+    <!-- Section 1: About Section (Purpose + Contact) -->
+    <section id="about" class="welcome panel" aria-labelledby="about-heading">
+      <div class="welcome-content">
+        <p class="eyebrow">YOUR PERSONAL KNOWLEDGE SPACE</p>
+        <h1 id="about-heading">
+          Welcome to your <span class="brand-accent">Vault.</span>
+        </h1>
+        <p class="welcome-description">
+          Organize your textbooks, research papers, and academic notes in one accessible place.
+          Search with regular expressions, track reading milestones, and keep your learning progress in sync.
+        </p>
+        <div class="about-contact">
+          <p><strong>Developer:</strong> KUBANA Herve Friend &bull; <em>African Leadership University (ALU)</em></p>
+          <p>
+            <strong>Contact:</strong>
+            <a href="https://github.com/Kubanaherve" target="_blank" rel="noopener noreferrer">GitHub (@Kubanaherve)</a>
+            &bull;
+            <a href="mailto:h.kubana@alustudent.com">h.kubana@alustudent.com</a>
+          </p>
+        </div>
+        <div class="welcome-actions">
+          <a href="#form-section" class="button button-primary">+ Add New Entry</a>
+          <a href="#vault" class="button button-light">Browse Collection</a>
+        </div>
+      </div>
       <div class="welcome-image-container" aria-hidden="true">
-        <img src="assets/graduation.jpg" alt="Graduation cap and stack of books" class="welcome-image">
-      </div>
-    </section>
-   
-    <!-- Dashboard Section -->
-    <section id="dashboard" class="section-block panel" aria-labelledby="dashboard-heading">
-      <h2 id="dashboard-heading">Stats & Dashboard</h2>
-      <div class="stats-grid">
-        <!-- FIXED: Typo on "Total" -->
-        <div class="stat-card">Total Books/Notes: <strong id="stat-total">0</strong></div>
-        <div class="stat-card">Total Pages: <strong id="stat-pages">0</strong></div>
-        <div class="stat-card">Top Tag: <strong id="stat-tag">N/A</strong></div>
-      </div>
-      <div class="cap-tracker" >
-        Reading Goal (Pages): <span id="goal-status">Loading...</span>
+        <img
+          src="assets/graduation.jpg"
+          alt=""
+          class="welcome-image"
+          width="480"
+          height="320"
+        >
       </div>
     </section>
 
-    <!-- Vault Table / Search -->
-    <section id="vault" class="section-block" aria-labelledby="vault-heading">
-      <h2 id="vault-heading">My Vault</h2>
+    <!-- Section 2: Stats & Dashboard -->
+    <section
+      id="dashboard"
+      class="section-block panel"
+      aria-labelledby="dashboard-heading"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">YOUR PROGRESS</p>
+          <h2 id="dashboard-heading">Stats &amp; Dashboard</h2>
+          <p class="section-description">
+            Real-time metrics on your collection volume, category distribution, and reading target.
+          </p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">▤</span>
+          <p>Total Books &amp; Notes</p>
+          <strong id="stat-total">0</strong>
+          <span class="stat-caption">Cataloged records</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">◷</span>
+          <p>Total Reading</p>
+          <strong id="stat-pages">0</strong>
+          <span class="stat-caption">Based on selected units</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">✦</span>
+          <p>Top Category / Tag</p>
+          <strong id="stat-tag">N/A</strong>
+          <span class="stat-caption">Most frequent subject</span>
+        </article>
+      </div>
+
+      <!-- Reading Goal Cap Tracker with Polite/Assertive ARIA Live Announcement -->
+      <div class="cap-tracker settings-card">
+        <div class="tracker-heading">
+          <div>
+            <p class="eyebrow">STAY ON TRACK</p>
+            <h3>Reading Goal Target</h3>
+          </div>
+          <span class="tracker-symbol" aria-hidden="true">◎</span>
+        </div>
+        <p id="goal-status" aria-live="polite">
+          Set a reading goal in Settings to start tracking progress.
+        </p>
+        <div
+          id="goal-progress-track"
+          class="progress-track"
+          role="progressbar"
+          aria-label="Reading goal progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <div id="goal-progress-fill" class="progress-fill"></div>
+        </div>
+        <p class="helper-text">
+          Progress bar automatically updates when records are added, edited, or deleted.
+        </p>
+      </div>
+
+      <!-- 7-Day Activity Trend Chart -->
+      <div class="activity-section">
+        <div class="section-heading">
+          <div>
+            <h3>Recent Activity (Last 7 Days)</h3>
+            <p class="section-description">
+              Entries added over the rolling calendar week.
+            </p>
+          </div>
+        </div>
+        <div
+          id="activity-chart"
+          class="activity-chart"
+          role="img"
+          aria-label="Activity chart showing entries added during the last seven days"
+        >
+          <p class="empty-state">Your recent activity will appear here.</p>
+        </div>
+        <p id="activity-summary" class="helper-text" aria-live="polite">
+          No entries logged in the past week.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 3: Records Vault & Live Regex Search -->
+    <section
+      id="vault"
+      class="section-block"
+      aria-labelledby="vault-heading"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">YOUR COLLECTION</p>
+          <h2 id="vault-heading">My Vault</h2>
+          <p class="section-description">
+            Search, sort, edit inline, and manage your library with regex patterns.
+          </p>
+        </div>
+        <span class="section-badge">PERSONAL LIBRARY</span>
+      </div>
+
       <div class="controls panel">
         <div class="search-group">
-          <label for="search-input">Regex Search:</label>
-          <input type="text" id="search-input" placeholder="e.g., \b(\w+)\s+\1\b">
-          <label class="check-label"><input type="checkbox" id="search-case" checked> Case Insensitive</label>
+          <label for="search-input">Regex Search</label>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search titles, authors, tags... (Press / to focus)"
+            aria-describedby="search-help search-error"
+            autocomplete="off"
+          >
+          <p id="search-help" class="helper-text">
+            Try <code>^Introduction</code> to find titles starting with “Introduction”,
+            or <code>\b(\w+)\s+\1\b</code> to find repeated words.
+          </p>
+          <p id="search-error" class="error-message" role="status" aria-live="polite"></p>
+          <label class="check-label" for="search-case">
+            <input type="checkbox" id="search-case" checked>
+            Case insensitive search
+          </label>
         </div>
-          <div class="sort-group">
-          <label for="sort-select">Sort By:</label>
-            <select id="sort-select">
-            <option value="dateAdded-desc">Date (Newest First)</option>
-            <option value="dateAdded-asc">Date (Oldest First)</option>
-            <option value="title-asc">Title (A-Z)</option>
-            <option value="pages-desc">Pages (High-Low)</option>
-            </select>
+
+        <div class="sort-group">
+          <label for="sort-select">Sort By</label>
+          <select id="sort-select">
+            <option value="dateAdded-desc">Date — Newest First</option>
+            <option value="dateAdded-asc">Date — Oldest First</option>
+            <option value="title-asc">Title — A to Z</option>
+            <option value="title-desc">Title — Z to A</option>
+            <option value="pages-desc">Pages — Highest First</option>
+            <option value="pages-asc">Pages — Lowest First</option>
+          </select>
         </div>
       </div>
-      
-      <div class="table-responsive panel" >
-        <table id="records-table" >
-          <caption class="sr-only">My Vault Records</caption>
+
+      <div class="table-wrapper table-responsive panel">
+        <table id="records-table">
+          <caption class="sr-only">
+            Saved books and notes catalog with titles, authors, page counts, tags, dates, and action controls.
+          </caption>
           <thead>
-            <tr >
-              <th >Title</th>
-              <th>Author</th>
-              <th>Pages</th>
-              <th>Tag</th>
-              <th>Date</th>
-              <th>Actions</th>
+            <tr>
+              <th scope="col">
+                <button type="button" class="th-sort-btn" data-sort-key="title" aria-label="Sort by Title">
+                  Title <span aria-hidden="true" class="sort-icon">↕</span>
+                </button>
+              </th>
+              <th scope="col">Author</th>
+              <th scope="col">
+                <button type="button" class="th-sort-btn" data-sort-key="pages" aria-label="Sort by Pages">
+                  Pages <span aria-hidden="true" class="sort-icon">↕</span>
+                </button>
+              </th>
+              <th scope="col">Tag</th>
+              <th scope="col">
+                <button type="button" class="th-sort-btn" data-sort-key="dateAdded" aria-label="Sort by Date">
+                  Date Added <span aria-hidden="true" class="sort-icon">↕</span>
+                </button>
+              </th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody id="records-body">
-            <!-- Populated via JS -->
+            <!-- Dynamically populated rows -->
           </tbody>
         </table>
       </div>
+      <p id="record-count" class="helper-text" aria-live="polite">
+        Loading saved entries...
+      </p>
     </section>
 
-    <!-- Add/Edit Form Section -->
-    <section id="form-section" class="section-block panel" aria-labelledby="form-heading">
-      <h2 id="form-heading">Add / Edit Entry</h2>
-      <form id="record-form" novalidate>
-        <input type="hidden" id="record-id">
-
-        <!-- FIXED: Added the missing Title, Author, and Pages inputs -->
-        <div class="form-group">
-          <label for="title">Title *</label>
-          <input type="text" id="title" required aria-describedby="title-error">
-          <span class="error-message" id="title-error"></span>
-        </div>
-
-        <div class="form-group">
-          <label for="author">Author *</label>
-          <input type="text" id="author" required aria-describedby="author-error">
-          <span class="error-message" id="author-error"></span>
-        </div>
-
-        <div class="form-group">
-          <label for="pages">Pages *</label>
-          <input type="number" id="pages" required aria-describedby="pages-error">
-          <span class="error-message" id="pages-error"></span>
-        </div>
-
-        <div class="form-group">
-          <label for="tag">Tag (e.g., Fiction, Study-Notes) *</label>
-          <input type="text" id="tag" required aria-describedby="tag-error">
-          <span class="error-message" id="tag-error"></span>
-        </div>
-
-        <div class="form-group">
-          <label for="dateAdded">Date Added (YYYY-MM-DD) *</label>
-          <input type="date" id="dateAdded" required aria-describedby="date-error">
-          <span class="error-message" id="dateAdded-error"></span>
-        </div>
-
+    <!-- Section 4: Add / Edit Form -->
+    <section
+      id="form-section"
+      class="section-block panel"
+      aria-labelledby="form-heading"
+    >
+      <div class="section-heading">
         <div>
-          <button type="submit" class="button button-primary">Save Entry</button>
-          <button type="button" id="cancel-edit" class="button button-light hidden">Cancel Edit</button>
+          <p class="eyebrow">BUILD YOUR COLLECTION</p>
+          <h2 id="form-heading">Add / Edit Entry</h2>
+          <p class="section-description">
+            Add a book or study note to your personal vault with regex validation.
+          </p>
+        </div>
+      </div>
+
+      <form id="record-form" novalidate>
+        <div class="form-group">
+          <label for="title">Title <span aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="e.g., Introduction to Algorithms"
+            maxlength="150"
+            required
+            aria-required="true"
+            aria-describedby="title-error"
+          >
+          <span id="title-error" class="error-message" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author <span aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="author"
+            name="author"
+            placeholder="e.g., Thomas H. Cormen"
+            maxlength="100"
+            required
+            aria-required="true"
+            aria-describedby="author-error"
+          >
+          <span id="author-error" class="error-message" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="pages">Number of Pages <span aria-hidden="true">*</span></label>
+          <input
+            type="number"
+            id="pages"
+            name="pages"
+            placeholder="e.g., 450"
+            min="1"
+            step="any"
+            required
+            aria-required="true"
+            aria-describedby="pages-error"
+          >
+          <span id="pages-error" class="error-message" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="tag">Tag / Category <span aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="tag"
+            name="tag"
+            placeholder="e.g., Computer-Science or Math Notes"
+            maxlength="50"
+            required
+            aria-required="true"
+            aria-describedby="tag-error"
+          >
+          <span id="tag-error" class="error-message" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="dateAdded">Date Added <span aria-hidden="true">*</span></label>
+          <input
+            type="date"
+            id="dateAdded"
+            name="dateAdded"
+            required
+            aria-required="true"
+            aria-describedby="dateAdded-error"
+          >
+          <span id="dateAdded-error" class="error-message" role="alert"></span>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            id="save-record-btn"
+            class="button button-primary"
+          >
+            Save Entry
+          </button>
+          <button
+            type="button"
+            id="cancel-edit"
+            class="button button-light hidden"
+          >
+            Cancel Edit
+          </button>
         </div>
       </form>
+      <p class="helper-text">
+        Fields marked with an asterisk (<span aria-hidden="true">*</span>) are required. Validation checks for no leading/trailing spaces, valid numbers, authentic calendar dates, and letters/hyphens tags.
+      </p>
     </section>
 
-    <!-- Settings Section -->
-    <section id="settings" class="section-block panel" aria-labelledby="settings-heading">
-    <div class="form-group action-group">
-          <button id="export-btn" class="button button-primary">Export JSON</button>
-
-           <label for="import-file" class="button button-light">
-                Import JSON
-          </label>
-
-          <input type="file" id="import-file" class="sr-only" accept=".json">
-
-         <p id="import-message" role="status" aria-live="polite"></p>
+    <!-- Section 5: Settings & Backup Management -->
+    <section
+      id="settings"
+      class="section-block panel"
+      aria-labelledby="settings-heading"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PERSONALIZE YOUR VAULT</p>
+          <h2 id="settings-heading">Settings &amp; Data Management</h2>
+          <p class="section-description">
+            Manage your reading targets, display preferences, backup files, and unit conversions.
+          </p>
+        </div>
       </div>
-      <h2 id="settings-heading">Settings & Data Management</h2>
-      <div class="form-group">
-        <label for="page-goal">Reading Goal (Pages Cap):</label>
-        <input type="number" id="page-goal" value="1000">
-        <button id="save-goal" class="button button-primary">Update Goal</button>
-      </div>
-      <div class="form-group">
-        <label for="unit-toggle">Display Units As:</label>
-        <select id="unit-toggle">
-          <option value="pages">Pages</option>
-          <option value="minutes">Minutes (1 page = 2 mins)</option>
-        <!-- FIXED: Added missing closing tags -->
-        </select>
+
+      <div class="settings-grid">
+        <!-- Goal Settings -->
+        <div class="settings-card">
+          <h3>Reading Goal Cap</h3>
+          <p class="section-description">
+            Set your target number of pages to read.
+          </p>
+          <div class="form-group">
+            <label for="page-goal">Reading Goal (Pages)</label>
+            <input
+              type="number"
+              id="page-goal"
+              min="1"
+              step="1"
+              value="1000"
+            >
+          </div>
+          <button
+            type="button"
+            id="save-goal"
+            class="button button-primary"
+          >
+            Update Goal
+          </button>
+        </div>
+
+        <!-- Display Preferences -->
+        <div class="settings-card">
+          <h3>Display Preferences</h3>
+          <p class="section-description">
+            Choose whether reading quantities are shown as pages or estimated minutes.
+          </p>
+          <div class="form-group">
+            <label for="unit-toggle">Display Units As</label>
+            <select id="unit-toggle">
+              <option value="pages">Pages</option>
+              <option value="minutes">Minutes (1 page = 2 minutes)</option>
+            </select>
+          </div>
+          <p class="helper-text">
+            Original page counts are safely preserved in storage.
+          </p>
+        </div>
+
+        <!-- Backup & Restore -->
+        <div class="settings-card">
+          <h3>Backup &amp; Restore</h3>
+          <p class="section-description">
+            Save a validated JSON/CSV backup or restore your collection from file.
+          </p>
+          <div class="form-group action-group">
+            <button
+              type="button"
+              id="export-btn"
+              class="button button-primary"
+            >
+              Export JSON
+            </button>
+            <button
+              type="button"
+              id="export-csv-btn"
+              class="button button-light"
+            >
+              Export CSV
+            </button>
+            <label for="import-file" class="button button-light import-label">
+              Import JSON
+            </label>
+            <input
+              type="file"
+              id="import-file"
+              class="sr-only"
+              accept=".json,application/json"
+              aria-describedby="import-help import-message"
+            >
+          </div>
+          <p id="import-help" class="helper-text">
+            Importing validates every record before saving. You can choose to merge or replace current data.
+          </p>
+          <p
+            id="import-message"
+            class="import-message"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          ></p>
+        </div>
+
+        <!-- Reading Time Calculator -->
+        <div class="settings-card">
+          <h3>Reading Time Calculator</h3>
+          <p class="section-description">
+            Convert pages to estimated minutes and hours (2 minutes/page rate).
+          </p>
+          <div class="form-group">
+            <label for="convert-pages">Number of Pages</label>
+            <input
+              type="number"
+              id="convert-pages"
+              min="1"
+              step="1"
+              placeholder="e.g., 60"
+            >
+          </div>
+          <button
+            type="button"
+            id="convert-btn"
+            class="button button-light"
+          >
+            Calculate Reading Time
+          </button>
+          <p
+            id="conversion-result"
+            class="conversion-result"
+            aria-live="polite"
+          >
+            Enter a page count above to calculate estimated reading time.
+          </p>
+        </div>
       </div>
     </section>
-        
   </main>
+
+  <!-- Semantic Footer Landmark (Direct child of body) -->
+  <footer class="site-footer">
+    <p class="footer-brand">Book &amp; Notes Vault</p>
+    <p>Organize your knowledge &bull; Track your progress &bull; Keep learning</p>
+    <p>
+      Developed by <strong>KUBANA Herve Friend</strong> &bull;
+      <a href="https://github.com/Kubanaherve/book-notes-vault" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+      &bull;
+      <a href="tests.html">Run Test Suite</a>
+    </p>
+  </footer>
 </body>
 </html>
-
-
-  
-  
-  
-     
-
-
-
-    
-
-        
-  
-
