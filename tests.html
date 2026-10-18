@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation & Unit Tests - Book & Notes Vault</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --border: #e2e8f0;
+      --pass: #10b981;
+      --fail: #ef4444;
+      --primary: #3b82f6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --surface: #1e293b;
+        --text: #f8fafc;
+        --border: #334155;
+      }
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.8rem;
+    }
+    .nav-back {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .nav-back:hover {
+      text-decoration: underline;
+    }
+    .pass {
+      color: var(--pass);
+      font-weight: 700;
+    }
+    .fail {
+      color: var(--fail);
+      font-weight: 700;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      background: var(--surface);
+      margin-bottom: 0.6rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="nav-back">&larr; Return to Book Vault</a>
+    <h1>Milestone 3 & Rubric Validation Tests</h1>
+    <p>Automated test assertions verifying regex patterns, input validators, safe compiler, HTML-escaped highlighter, and state persistence.</p>
+  </header>
+
+  <ul id="test-results"></ul>
+
+  <script type="module" src="tests/tests.js"></script>
+</body>
+</html>
